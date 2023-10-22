@@ -15,3 +15,13 @@ def addItem(request):
         serializer.save()
 
     return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteItem(request, item_id):
+    try:
+        item = Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        return "no item"
+    item.delete()
+
+    return Response()
